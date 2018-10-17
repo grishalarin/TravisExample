@@ -1,0 +1,27 @@
+language: java
+sudo: true
+
+install: true
+dist: trusty
+
+jdk:
+- oraclejdk8
+
+branches:
+  only:
+  - master
+  - develop
+
+cache:
+  directories:
+  - '$HOME/.m2/repository'
+  - '$HOME/.sonar/cache'
+
+addons:
+  sonarcloud:
+    organization: "exa" # the key of the org you chose at step #3
+    token:
+      secure: 5a5257e76ec24065ed6fa41f54aff0d11fedec41 # encrypted value of your token
+script:
+# other script steps might be done before running the actual analysis
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
